@@ -1,0 +1,92 @@
+what is data warehouse:
+A database used and optimised for analytical purposes.
+-It should be user friendly, Fast query performance, Enabling best and easy data analysis.
+
+-We will have different data sources and even in different data formats. We have to transform them and put them in the same structure into our centralised location.
+
+Goals of data warehouses
+-Centralised and consistent location for data
+-Data must be accessible fast (query performance)
+-User friendly(Easy to understand)
+-Must load data consistently and repeatedly(ETL)
+-Reporting and data visualisation built on top of warehouses.
+
+We build data warehouses for business intelligence. 
+In BI, you use raw data and transform them to make reporting and data visualisations to have meaningful insights and better decisions. so , a data warehouse is the place where you find structured data to do this all.
+
+data warehouse vs data lake
+A data warehouse is a key component in BI.
+It is the centralised location for data storage.
+Data lake is also used as centralised data storage.
+
+
+Data Warehouse layers:
+Data sources -> Staging(integrate data from multiple data sources to here) -> Cleansing(if our data is really raw, we may need to have separate layer for this) -> Core/Data warehouse(We transform the data to a structured format from staging/cleaning layer to make ready to use) -> Data Mart(if we have really many many tables, we divide  them across multiple data marts as per use cases as relevant tables)
+
+why we need staging layer:
+-short time on the source system,( these are the databases on which companies are running, w don't want to slow them down with our query processing)
+-Move the data into relational database
+-we can start transformations from here.
+
+Staging Layer:
+-It is the landing zone extracted data
+-Data in tables and on a separate database
+-As little 'touching' as possible, as this affects the source database OS
+-Temp or Persistant(we never truncate the tables) staging layer
+
+In larger companies, Data marts layer is built on top of Core layer. That is called Data Mart. These build for special use cases. These are sub parts of the warehouse.
+- The data in these data marts are modelled in a dimensional way. We have fact tables in the middle and we will have dimensional tables around them.
+
+-When we don't need the data marts, obviously our core layer acts as an Access layer. At this point, the data can be modelled into dimensions and facts.
+
+why we really need data marts:
+1. Usability Acceptance : As we know the people from the business side don't have much technical knowledge, It makes it easy for them to work with tables that are suitable for the exact use case. They will not be overwhelmed by all those tables in the warehouse.
+2. Performance: We use specialised technology for faster query performance.
+PowerBI: In - memory databases
+In some cases: dimensional cubes.
+
+The reasons to have data marts: 
+It could be different tools: PowerBI, we should have an in-memory database for good performance. For predictive analysis, we don't need the data in-memory. We might have different departments, we can data marts for respective departments. We can data marts for respective Regions, use cases.
+
+Should you use a Data Mart or not? It depends on how centralised our core data warehouse is and how many use cases we have.
+
+In-memory databases:
+- Highly optimised for query performance
+-Good for Analytics/High query volume
+-Usually used for data marts which acts as an access layer for customers as we don't want customers to wait too long to display the visualisations from the data.
+-These in-memory databases are independent of whether the data is structured in Relational or non-relational.
+
+In-Memory database: How it works.
+-We eliminate the response time coming from disk to I'm-memory. As we store data on Disk usually for relational databases.
+-For this In-memory database, we store data in columnar storage.
+-We use parallel query plans. Let's say we have complex queries, we break them into small pieces so that each one of them are being executed separately by each thread.
+
+We may need to use other techniques to overcome in-memory storage challenges.
+Durability is the major factor.
+Durability: Loss all information when device loses power or rest/ data connection loss.
+-Durability added through snapshots/images.
+- So before connection loss, we will have to store the database state in the form of images on Disk.
+-Cost-factor
+-However, Traditional DBs are also trying to reduce usage of Disk through query optimization.
+Examples of in-memory databases(Relational DBs).
+-SAP HANA
+-MS SQL Server In-Memory tables
+-Oracle In-Memory
+-Amazon MemoryDB, we will use these if want in-memory database in our data marts
+Traditional ways of increasing query-performance in data marts- are called cubes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
